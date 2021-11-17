@@ -4,8 +4,9 @@ int main()
 {
     try
     {
-        Array< float > kda(5);
+        Array< float > kda(8);
 
+        std::cout << "size = " << kda.size() << std::endl;
         unsigned int  i = 0;
         kda[2] = 3;
         while(i < kda.size())

@@ -1,3 +1,5 @@
+#ifndef _ARRAY_HPP
+#define _ARRAY_HPP
 #include <iostream>
 
 template<typename T>
@@ -70,3 +72,4 @@ class Array
         };
 
 };
+#endif
