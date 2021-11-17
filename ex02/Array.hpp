@@ -1,4 +1,5 @@
 #include <iostream>
+
 template<typename T>
 class Array
 {
@@ -6,7 +7,7 @@ class Array
         T   *ptr;
         unsigned int the_size;
     public:
-        Array() : the_size(1), ptr(new T[1])
+        Array() : ptr(new T[0]),the_size(0) 
         {            
             std::cout << "Default Constructor Called!\n";
         }
@@ -14,10 +15,6 @@ class Array
         {
             std::cout << "Copy Constructor Called!\n";
             (*this) = (*other);
-        }
-        unsigned int     size() const
-        {
-            return (the_size);
         }
         void    operator=(const Array& other)
         {
@@ -33,6 +30,25 @@ class Array
         ~Array()
         {
             std::cout << "Default Destructor Called!\n";
+            delete[] ptr;
+        }
+        
+        unsigned int     size() const
+        {
+            return (the_size);
+        } 
+        
+        const T &operator[](unsigned int  i) const 
+        {
+            if (i < 0 || i >= this->the_size)
+                throw OutOfBoundsException();
+            return (ptr[i]);
+        }
+        T &operator[](unsigned int  i) 
+        {
+            if (i < 0 || i >= this->the_size)
+                throw OutOfBoundsException();
+            return (ptr[i]);
         }
         Array(unsigned int n) :  ptr(new T[n]),the_size(n)
         {
@@ -44,6 +60,7 @@ class Array
                 i++;
             }
         }
+
         class OutOfBoundsException : public std::exception
         {
             virtual const char *what() const throw() 
@@ -51,10 +68,5 @@ class Array
                 return ("Given Index Is Out Of Bounds!");
             }
         };
-        T &operator[](unsigned int  i)
-        {
-            if (i < 0 || i > this->the_size)
-                throw OutOfBoundsException();
-            return (ptr[i]);
-        }
+
 };
